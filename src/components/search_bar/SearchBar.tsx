@@ -1,5 +1,5 @@
 import { Component, ReactNode } from 'react';
-
+import './SearchBar.css';
 interface SearchBarProps {
   onSearch: (searchString: string) => void;
 }
@@ -46,8 +46,9 @@ class SearchBar extends Component<SearchBarProps, SearchBarState> {
 
   render(): ReactNode {
     return (
-      <div>
+      <div className="section">
         <input
+          className="search-input"
           value={this.state.searchValue}
           onChange={this.handleSearchInputChange}
         />
