@@ -1,4 +1,4 @@
-import { Component, ReactNode } from 'react';
+import React, { Component, ReactNode } from 'react';
 import './App.css';
 import SearchBar from './components/search_bar/SearchBar';
 import { Movie, searchMovies } from './services/MovieService';

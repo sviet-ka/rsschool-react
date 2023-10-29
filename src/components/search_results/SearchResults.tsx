@@ -1,4 +1,4 @@
-import { Component, ReactNode } from 'react';
+import React, { Component, ReactNode } from 'react';
 import { Movie } from '../../services/MovieService';
 import './SearchResults.css';
 
