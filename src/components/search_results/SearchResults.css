@@ -1,0 +1,12 @@
+.result-row {
+  border: solid black 0.5px;
+}
+
+.result-row-name {
+  background-color: rgb(236, 236, 236);
+}
+
+.cell-content {
+  margin-left: 10px;
+  margin-right: 10px;
+}
