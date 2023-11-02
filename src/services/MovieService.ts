@@ -11,7 +11,6 @@ const searchMovies = async (searchString: string): Promise<Movie[]> => {
   const url = searchString
     ? `${BASE_URL}/search/movie?query=${searchString}&api_key=${API_KEY}`
     : `${BASE_URL}/movie/popular?api_key=${API_KEY}`;
-  await new Promise((r) => setTimeout(r, 2000));
   const response = await fetch(url);
   const res = await response.json();
   return res.results;
