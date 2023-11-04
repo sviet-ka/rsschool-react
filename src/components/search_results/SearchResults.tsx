@@ -9,7 +9,7 @@ interface SearchResultsProps {
 const SearchResults: React.FC<SearchResultsProps> = ({ results }) => {
   return (
     <>
-      <div className="section">
+      <div>
         {results.map((movie: Product) => (
           <div className="result-row" key={movie.id}>
             <div className="result-row-name">

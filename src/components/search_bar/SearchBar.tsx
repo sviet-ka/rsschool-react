@@ -1,39 +1,24 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import './SearchBar.css';
 interface SearchBarProps {
+  searchValue: string;
+  onSearchValueChange: (searchValue: string) => void;
   onSearch: (searchString: string) => void;
 }
 
-const SEARCH_INPUT_VALUE_STORAGE_KEY: string = 'searchInputValue';
-
-const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
-  const [searchValue, setSearchValue] = useState<string>('');
-
-  useEffect(() => {
-    const searchInputValue = getSearchInputValue();
-    setSearchValue(searchInputValue);
-    onSearch(searchInputValue);
-  }, [onSearch]);
-
-  const getSearchInputValue = (): string => {
-    return localStorage.getItem(SEARCH_INPUT_VALUE_STORAGE_KEY) ?? '';
-  };
-
-  const saveSearchInputValue = (value: string): void => {
-    localStorage.setItem(SEARCH_INPUT_VALUE_STORAGE_KEY, value);
-  };
-
+const SearchBar: React.FC<SearchBarProps> = ({
+  searchValue,
+  onSearchValueChange,
+  onSearch,
+}) => {
   const handleSearchInputChange = (
     e: React.ChangeEvent<HTMLInputElement>
   ): void => {
-    setSearchValue(e.target.value);
+    onSearchValueChange(e.target.value);
   };
 
   const handleSearchBtnClick = (): void => {
-    const trimmedSearchValue = searchValue.trim();
-    setSearchValue(trimmedSearchValue);
-    saveSearchInputValue(trimmedSearchValue);
-    onSearch(trimmedSearchValue);
+    onSearch(searchValue.trim());
   };
 
   return (
