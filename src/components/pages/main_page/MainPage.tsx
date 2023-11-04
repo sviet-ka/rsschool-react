@@ -15,13 +15,17 @@ import SearchResults from '../../../components/search_results/SearchResults';
 import PaginationComponent, {
   Pagination,
 } from '../../pagination_component/PaginationComponent';
+import { useSearchParams } from 'react-router-dom';
 
 const MainPage: React.FC = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
   const [response, setResponse] = useState<ProductsResponse>();
   const [isLoaded, setisLoaded] = useState<boolean>(true);
   const [isThrowButtonClicked, setisThrowButtonClicked] =
     useState<boolean>(false);
-  const [currentPage, setCurrentPage] = useState<number>(0);
+  const [currentPage, setCurrentPage] = useState<number>(
+    (Number(searchParams.get('page')) || 1) - 1
+  );
   const [pageSize, setPageSize] = useState<number>(10);
   const [searchString, setSearchString] = useState<string>(
     getSearchInputValue()
@@ -29,6 +33,13 @@ const MainPage: React.FC = () => {
   const [searchInputValue, setSearchInputValue] = useState<string>(
     getSearchInputValue()
   );
+
+  useEffect(() => {
+    setSearchParams((params) => {
+      params.set('page', String(currentPage + 1));
+      return params;
+    });
+  }, [currentPage, setSearchParams]);
 
   useEffect(() => {
     const fetchProducts = async (searchParams: SearchParams) => {
