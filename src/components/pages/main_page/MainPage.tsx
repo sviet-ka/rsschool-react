@@ -1,11 +1,11 @@
 import React, { useCallback, useState } from 'react';
 import './MainPage.css';
 import SearchBar from '../../../components/search_bar/SearchBar';
-import { Movie, searchMovies } from '../../..//services/MovieService';
+import { Product, searchProducts } from '../../../services/ProductsService';
 import SearchResults from '../../../components/search_results/SearchResults';
 
 const MainPage: React.FC = () => {
-  const [results, setResults] = useState<Movie[]>([]);
+  const [results, setResults] = useState<Product[]>([]);
   const [isLoaded, setisLoaded] = useState<boolean>(true);
   const [isThrowButtonClicked, setisThrowButtonClicked] =
     useState<boolean>(false);
@@ -13,7 +13,7 @@ const MainPage: React.FC = () => {
   const handleSearch = useCallback(
     async (searchString: string): Promise<void> => {
       setisLoaded(false);
-      const requestResult = await searchMovies(searchString);
+      const requestResult = await searchProducts(searchString);
       setResults(requestResult);
       setisLoaded(true);
     },
