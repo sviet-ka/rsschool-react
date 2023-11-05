@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import './MainPage.css';
 import SearchBar from '../../../components/search_bar/SearchBar';
 import {
+  Product,
   ProductsResponse,
   SearchParams,
   searchProducts,
@@ -12,10 +13,8 @@ import {
   saveSearchInputValue,
 } from '../../../services/LocalStorageService';
 import SearchResults from '../../../components/search_results/SearchResults';
-import PaginationComponent, {
-  Pagination,
-} from '../../pagination_component/PaginationComponent';
-import { useSearchParams } from 'react-router-dom';
+import { Outlet, useSearchParams, useNavigate } from 'react-router-dom';
+import Pagination, { PaginationEvent } from '../../pagination/Pagination';
 
 const MainPage: React.FC = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -33,6 +32,8 @@ const MainPage: React.FC = () => {
   const [searchInputValue, setSearchInputValue] = useState<string>(
     getSearchInputValue()
   );
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     setSearchParams((params) => {
@@ -75,16 +76,28 @@ const MainPage: React.FC = () => {
   };
 
   const handlePagination = useCallback(
-    async ({ page, pageSize }: Pagination): Promise<void> => {
+    async ({ page, pageSize }: PaginationEvent): Promise<void> => {
       setCurrentPage(page);
       setPageSize(pageSize);
     },
     []
   );
 
+  const handleItemSelect = useCallback(
+    (product: Product) => {
+      navigate('/details');
+      setSearchParams((params) => {
+        params.set('product', String(product.id));
+        return params;
+      });
+    },
+    [navigate, setSearchParams]
+  );
+
   if (isThrowButtonClicked) {
     throw new Error('I crashed!');
   }
+
   return (
     <div className="container">
       <SearchBar
@@ -98,15 +111,21 @@ const MainPage: React.FC = () => {
         </button>
       </div>
       {isLoaded ? (
-        <>
-          <SearchResults results={response?.products ?? []}></SearchResults>
-          <PaginationComponent
-            totalItems={response?.total ?? 0}
-            currentPage={currentPage}
-            pageSize={pageSize}
-            onPaginationChange={handlePagination}
-          />
-        </>
+        <div className="results-container">
+          <div className="results-list">
+            <SearchResults
+              results={response?.products ?? []}
+              onItemSelect={handleItemSelect}
+            ></SearchResults>
+            <Pagination
+              totalItems={response?.total ?? 0}
+              currentPage={currentPage}
+              pageSize={pageSize}
+              onPaginationChange={handlePagination}
+            />
+          </div>
+          <Outlet />
+        </div>
       ) : (
         <div>Loading...</div>
       )}

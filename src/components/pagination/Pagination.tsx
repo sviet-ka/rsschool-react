@@ -1,19 +1,19 @@
 import React from 'react';
-import './PaginationComponent.css';
+import './Pagination.css';
 
-interface PaginationComponentProps {
+interface PaginationProps {
   totalItems: number;
   currentPage: number;
   pageSize: number;
-  onPaginationChange: (pagination: Pagination) => void;
+  onPaginationChange: (pagination: PaginationEvent) => void;
 }
 
-export interface Pagination {
+export interface PaginationEvent {
   page: number;
   pageSize: number;
 }
 
-const PaginationComponent: React.FC<PaginationComponentProps> = ({
+const Pagination: React.FC<PaginationProps> = ({
   totalItems,
   currentPage,
   pageSize,
@@ -66,4 +66,4 @@ const PaginationComponent: React.FC<PaginationComponentProps> = ({
   );
 };
 
-export default PaginationComponent;
+export default Pagination;

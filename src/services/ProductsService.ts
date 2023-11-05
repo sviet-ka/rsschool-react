@@ -2,8 +2,13 @@ import axios from 'axios';
 
 export interface Product {
   id: number;
-  title: string;
+  brand: string;
+  category: string;
   description: string;
+  images: string[];
+  price: number;
+  rating: number;
+  title: string;
 }
 
 export interface ProductsResponse {
@@ -37,14 +42,11 @@ const searchProducts = async ({
     },
   });
   return response.data;
-  // console.log('searchProducts call');
-
-  // return {
-  //   products: [{ id: 1, title: 'prod 1', description: 'prod 1 desc' }],
-  //   total: 1,
-  //   skip: 0,
-  //   limit: 10,
-  // };
 };
 
-export { searchProducts };
+const getProduct = async (id: number): Promise<Product> => {
+  const response = await axios.get<Product>(`${BASE_URL}/products/${id}`);
+  return response.data;
+};
+
+export { searchProducts, getProduct };
