@@ -15,6 +15,8 @@ import {
 import SearchResults from '../../../components/search_results/SearchResults';
 import { Outlet, useSearchParams, useNavigate } from 'react-router-dom';
 import Pagination, { PaginationEvent } from '../../pagination/Pagination';
+import { ProductsContext } from '../../../contexts/ProductsContext';
+import { SearchContext } from '../../../contexts/searchContext';
 
 const MainPage: React.FC = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -99,37 +101,43 @@ const MainPage: React.FC = () => {
   }
 
   return (
-    <div className="container">
-      <SearchBar
-        searchValue={searchInputValue}
-        onSearchValueChange={handleSearchValueChange}
-        onSearch={handleSearch}
-      ></SearchBar>
-      <div>
-        <button className="throw-error-button" onClick={handleThrowErrow}>
-          Throw Error
-        </button>
-      </div>
-      {isLoaded ? (
-        <div className="results-container">
-          <div className="results-list">
-            <SearchResults
-              results={response?.products ?? []}
-              onItemSelect={handleItemSelect}
-            ></SearchResults>
-            <Pagination
-              totalItems={response?.total ?? 0}
-              currentPage={currentPage}
-              pageSize={pageSize}
-              onPaginationChange={handlePagination}
-            />
+    <ProductsContext.Provider value={response?.products ?? []}>
+      <SearchContext.Provider value={searchInputValue}>
+        <div className="container">
+          <SearchBar
+            onSearchValueChange={handleSearchValueChange}
+            onSearch={handleSearch}
+          ></SearchBar>
+          <div>
+            <button className="throw-error-button" onClick={handleThrowErrow}>
+              Throw Error
+            </button>
           </div>
-          <Outlet />
+          {isLoaded ? (
+            response?.total ?? 0 > 0 ? (
+              <div className="results-container">
+                <div className="results-list">
+                  <SearchResults
+                    onItemSelect={handleItemSelect}
+                  ></SearchResults>
+                  <Pagination
+                    totalItems={response?.total ?? 0}
+                    currentPage={currentPage}
+                    pageSize={pageSize}
+                    onPaginationChange={handlePagination}
+                  />
+                </div>
+                <Outlet />
+              </div>
+            ) : (
+              <div>No products found</div>
+            )
+          ) : (
+            <div>Loading...</div>
+          )}
         </div>
-      ) : (
-        <div>Loading...</div>
-      )}
-    </div>
+      </SearchContext.Provider>
+    </ProductsContext.Provider>
   );
 };
 

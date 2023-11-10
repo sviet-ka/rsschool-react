@@ -1,16 +1,16 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import './SearchBar.css';
+import { SearchContext } from '../../contexts/searchContext';
 interface SearchBarProps {
-  searchValue: string;
   onSearchValueChange: (searchValue: string) => void;
   onSearch: (searchString: string) => void;
 }
 
 const SearchBar: React.FC<SearchBarProps> = ({
-  searchValue,
   onSearchValueChange,
   onSearch,
 }) => {
+  const searchValue = useContext(SearchContext);
   const handleSearchInputChange = (
     e: React.ChangeEvent<HTMLInputElement>
   ): void => {

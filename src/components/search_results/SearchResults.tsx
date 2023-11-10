@@ -1,16 +1,14 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Product } from '../../services/ProductsService';
 import './SearchResults.css';
+import { ProductsContext } from '../../contexts/ProductsContext';
 
 interface SearchResultsProps {
-  results: Product[];
   onItemSelect: (item: Product) => void;
 }
 
-const SearchResults: React.FC<SearchResultsProps> = ({
-  results,
-  onItemSelect,
-}) => {
+const SearchResults: React.FC<SearchResultsProps> = ({ onItemSelect }) => {
+  const results = useContext(ProductsContext);
   return (
     <>
       <div>
