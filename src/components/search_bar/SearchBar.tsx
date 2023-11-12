@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import './SearchBar.css';
-import { SearchContext } from '../../contexts/searchContext';
+import { SearchContext } from '../../contexts/SearchContext';
 interface SearchBarProps {
   onSearchValueChange: (searchValue: string) => void;
   onSearch: (searchString: string) => void;

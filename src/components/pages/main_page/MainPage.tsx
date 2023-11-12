@@ -16,7 +16,7 @@ import SearchResults from '../../../components/search_results/SearchResults';
 import { Outlet, useSearchParams, useNavigate } from 'react-router-dom';
 import Pagination, { PaginationEvent } from '../../pagination/Pagination';
 import { ProductsContext } from '../../../contexts/ProductsContext';
-import { SearchContext } from '../../../contexts/searchContext';
+import { SearchContext } from '../../../contexts/SearchContext';
 
 const MainPage: React.FC = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -114,24 +114,18 @@ const MainPage: React.FC = () => {
             </button>
           </div>
           {isLoaded ? (
-            response?.total ?? 0 > 0 ? (
-              <div className="results-container">
-                <div className="results-list">
-                  <SearchResults
-                    onItemSelect={handleItemSelect}
-                  ></SearchResults>
-                  <Pagination
-                    totalItems={response?.total ?? 0}
-                    currentPage={currentPage}
-                    pageSize={pageSize}
-                    onPaginationChange={handlePagination}
-                  />
-                </div>
-                <Outlet />
+            <div className="results-container">
+              <div className="results-list">
+                <SearchResults onItemSelect={handleItemSelect}></SearchResults>
+                <Pagination
+                  totalItems={response?.total ?? 0}
+                  currentPage={currentPage}
+                  pageSize={pageSize}
+                  onPaginationChange={handlePagination}
+                />
               </div>
-            ) : (
-              <div>No products found</div>
-            )
+              <Outlet />
+            </div>
           ) : (
             <div>Loading...</div>
           )}

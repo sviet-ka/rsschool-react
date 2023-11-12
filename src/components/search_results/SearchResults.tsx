@@ -4,16 +4,20 @@ import './SearchResults.css';
 import { ProductsContext } from '../../contexts/ProductsContext';
 
 interface SearchResultsProps {
-  onItemSelect: (item: Product) => void;
+  onItemSelect?: (item: Product) => void;
 }
 
-const SearchResults: React.FC<SearchResultsProps> = ({ onItemSelect }) => {
+const SearchResults: React.FC<SearchResultsProps> = ({
+  onItemSelect = () => {},
+}) => {
   const results = useContext(ProductsContext);
   return (
     <>
       <div>
+        {results.length === 0 && <div>No products found</div>}
         {results.map((product: Product) => (
           <div
+            role="result-row"
             className="result-row"
             key={product.id}
             onClick={() => onItemSelect(product)}
