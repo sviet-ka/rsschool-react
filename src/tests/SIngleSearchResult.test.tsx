@@ -5,7 +5,6 @@ import SearchResults from '../components/search_results/SearchResults';
 import { RouterProvider } from 'react-router-dom';
 import { router } from '../router';
 import { server } from '../mocks/server';
-import axios from 'axios';
 
 const products = [
   {
