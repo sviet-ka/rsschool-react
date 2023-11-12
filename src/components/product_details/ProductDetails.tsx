@@ -39,8 +39,8 @@ const ProductDetails: React.FC = () => {
             <div>{product.description}</div>
             <div>Price: ${product.price}</div>
             <div>
-              {product.images.map((imageSrc: string) => (
-                <img key={imageSrc} src={imageSrc} />
+              {product.images.map((imageSrc: string, i: number) => (
+                <img key={imageSrc} src={imageSrc} alt={`image of ${i}`} />
               ))}
             </div>
           </div>

@@ -26,7 +26,7 @@ const products = [
   },
 ];
 
-describe('App', () => {
+describe('SearchResults', () => {
   it('Verify the SearchResults component renders the specified number of results', async () => {
     render(
       <>
@@ -41,7 +41,7 @@ describe('App', () => {
     expect(screen.queryByText('No products found')).toBeNull();
   });
 
-  it('Verify the SearchResults component renders the specified number of results', async () => {
+  it('Verify the appropriate message is displayed if no cards are present.', async () => {
     render(
       <>
         <ProductsContext.Provider value={[]}>
