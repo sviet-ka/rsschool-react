@@ -1,4 +1,4 @@
-const SEARCH_INPUT_VALUE_STORAGE_KEY: string = 'searchInputValue';
+export const SEARCH_INPUT_VALUE_STORAGE_KEY: string = 'searchInputValue';
 
 export const getSearchInputValue = (): string => {
   return localStorage.getItem(SEARCH_INPUT_VALUE_STORAGE_KEY) ?? '';

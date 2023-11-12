@@ -19,7 +19,7 @@ const products = [
   },
 ];
 
-describe('ProductDetails', () => {
+describe('Single Search Result', () => {
   it('Verify that the card component renders the relevant card data', async () => {
     render(
       <>

@@ -24,6 +24,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
   return (
     <div className="section">
       <input
+        role="search-bar"
         className="search-input"
         value={searchValue}
         onChange={handleSearchInputChange}
