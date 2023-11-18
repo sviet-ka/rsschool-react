@@ -1,24 +1,21 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import './SearchBar.css';
-import { SearchContext } from '../../contexts/SearchContext';
-interface SearchBarProps {
-  onSearchValueChange: (searchValue: string) => void;
-  onSearch: (searchString: string) => void;
-}
+import { useAppDispatch, useAppSelector } from '../../app/hooks';
+import {
+  updateSearchString,
+  startSearch,
+  updateSearchInputValue,
+} from '../../features/search/search-slice';
 
-const SearchBar: React.FC<SearchBarProps> = ({
-  onSearchValueChange,
-  onSearch,
-}) => {
-  const searchValue = useContext(SearchContext);
+const SearchBar: React.FC = () => {
+  const dispatch = useAppDispatch();
+  const searchInputValue = useAppSelector(
+    (state) => state.search.searchInputValue
+  );
   const handleSearchInputChange = (
     e: React.ChangeEvent<HTMLInputElement>
   ): void => {
-    onSearchValueChange(e.target.value);
-  };
-
-  const handleSearchBtnClick = (): void => {
-    onSearch(searchValue.trim());
+    dispatch(updateSearchInputValue(e.target.value));
   };
 
   return (
@@ -26,10 +23,17 @@ const SearchBar: React.FC<SearchBarProps> = ({
       <input
         role="search-bar"
         className="search-input"
-        value={searchValue}
+        value={searchInputValue}
         onChange={handleSearchInputChange}
       />
-      <button onClick={handleSearchBtnClick}>Search</button>
+      <button
+        onClick={() => {
+          dispatch(startSearch());
+          dispatch(updateSearchString(searchInputValue));
+        }}
+      >
+        Search
+      </button>
     </div>
   );
 };
