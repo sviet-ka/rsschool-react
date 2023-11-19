@@ -1,0 +1,22 @@
+.throw-error-button {
+    background-color: rgb(246, 175, 175);
+    margin-bottom: 10px;
+  }
+
+.container {
+  padding-top: 60px;
+  padding-left: 120px;
+  padding-bottom: 60px;
+  padding-bottom: 120px;
+  width: 1600px;
+}
+
+.results-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.results-list {
+  min-width: 50%;
+}
