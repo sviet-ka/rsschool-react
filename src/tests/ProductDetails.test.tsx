@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
 import ProductDetails from '../components/product_details/ProductDetails';
 import {
@@ -8,10 +8,11 @@ import {
 } from 'react-router-dom';
 import { routes } from '../router';
 import { act } from 'react-dom/test-utils';
+import { renderWithProviders } from './test-utils';
 
 describe('ProductDetails', () => {
   it('Verify the loading indicator is displayed while fetching data', async () => {
-    render(
+    renderWithProviders(
       <MemoryRouter initialEntries={['?product=123']}>
         <ProductDetails />
       </MemoryRouter>
@@ -21,7 +22,7 @@ describe('ProductDetails', () => {
   });
 
   it('Verify the detailed card component correctly displays the detailed card data', async () => {
-    render(
+    renderWithProviders(
       <MemoryRouter initialEntries={['?product=123']}>
         <ProductDetails />
       </MemoryRouter>
@@ -37,7 +38,7 @@ describe('ProductDetails', () => {
     const router = createMemoryRouter(routes, {
       initialEntries: ['/details?page=1&product=123'],
     });
-    render(<RouterProvider router={router} />);
+    renderWithProviders(<RouterProvider router={router} />);
 
     const closeBtn = await screen.findByRole('button', { name: 'Close' });
     act(() => {

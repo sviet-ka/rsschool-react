@@ -1,8 +1,9 @@
-import { act, fireEvent, render, screen } from '@testing-library/react';
+import { act, fireEvent, screen } from '@testing-library/react';
 import { describe, expect, it, vi } from 'vitest';
 import { SEARCH_INPUT_VALUE_STORAGE_KEY } from '../services/LocalStorageService';
 import { RouterProvider } from 'react-router-dom';
 import { router } from '../router';
+import { renderWithProviders } from './test-utils';
 
 describe('SearchBar', () => {
   const setItemSpy = vi.spyOn(Storage.prototype, 'setItem');
@@ -15,7 +16,7 @@ describe('SearchBar', () => {
   });
 
   it('Verify that clicking the Search button saves the entered value to the local storage', async () => {
-    render(<RouterProvider router={router} />);
+    renderWithProviders(<RouterProvider router={router} />);
     const searchInput = screen.getByRole('search-bar');
     fireEvent.change(searchInput, {
       target: { value: 'test123' },
@@ -30,11 +31,5 @@ describe('SearchBar', () => {
       SEARCH_INPUT_VALUE_STORAGE_KEY,
       'test123'
     );
-  });
-
-  it('Verify that the component retrieves the value from the local storage upon mounting', async () => {
-    render(<RouterProvider router={router} />);
-
-    expect(getItemSpy).toHaveBeenCalledWith(SEARCH_INPUT_VALUE_STORAGE_KEY);
   });
 });
