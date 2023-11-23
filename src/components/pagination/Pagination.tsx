@@ -16,7 +16,7 @@ export const Pagination: React.FC = () => {
   const dispatch = useAppDispatch();
   const currentPage = useAppSelector((state) => state.search.currentPage);
   const pageSize = useAppSelector((state) => state.search.itemsPerPage);
-  const searchString = useAppSelector((state) => state.search.searchInputValue);
+  const searchString = useAppSelector((state) => state.search.searchString);
 
   const { data, isSuccess, isLoading, isError } = useFetchProductsQuery({
     searchString,
