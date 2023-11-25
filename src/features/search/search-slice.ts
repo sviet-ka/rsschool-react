@@ -1,15 +1,18 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 export const SEARCH_INPUT_VALUE_STORAGE_KEY: string = 'searchInputValue';
+let searchInputValue = '';
+if (typeof window !== 'undefined') {
+  searchInputValue = localStorage.getItem(SEARCH_INPUT_VALUE_STORAGE_KEY) ?? '';
+}
 
 export const searchSlice = createSlice({
   name: 'search',
   initialState: {
-    searchInputValue:
-      localStorage.getItem(SEARCH_INPUT_VALUE_STORAGE_KEY) ?? '',
+    searchInputValue,
     itemsPerPage: 10,
     currentPage: 0,
-    searchString: localStorage.getItem(SEARCH_INPUT_VALUE_STORAGE_KEY) ?? '',
+    searchString: searchInputValue,
   },
   reducers: {
     startSearch: (state) => {

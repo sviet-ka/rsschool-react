@@ -33,7 +33,9 @@
   },
   "include": [
     "src",
-    ".next/types/**/*.ts"
+    ".next/types/**/*.ts",
+    "pages/404.tsx",
+    "pages/details/index.tsx"
   ],
   "references": [
     {

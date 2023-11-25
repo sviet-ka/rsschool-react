@@ -1,21 +1,21 @@
 import React, { useCallback } from 'react';
-// import { Product, getProduct } from '../../services/ProductsService';
-import { useSearchParams, useNavigate } from 'react-router-dom';
-import './ProductDetails.css';
+import '../styles/ProductDetails.css';
 import { useFetchProductQuery } from '../../features/products/products-api-slice';
-import ErrorPage from '../pages/not_found_page/NotFoundPage';
+import ErrorPage from '../../../pages/404';
+import { useRouter } from 'next/router';
 
 const ProductDetails: React.FC = () => {
-  const [searchParams] = useSearchParams();
-  const navigate = useNavigate();
+  const router = useRouter();
 
-  const productId = Number(searchParams.get('product'));
+  const productId = Number(router.query.product);
   const { data, isFetching, isLoading, isSuccess, isError } =
     useFetchProductQuery(productId);
 
   const handleCloseBtnClick = useCallback(() => {
-    navigate('/');
-  }, [navigate]);
+    router.push({
+      pathname: '/',
+    });
+  }, [router]);
 
   if (isLoading || isFetching) {
     return <div>Loading...</div>;

@@ -1,5 +1,5 @@
 import React from 'react';
-import './Pagination.css';
+import '../styles/Pagination.css';
 import { useFetchProductsQuery } from '../../features/products/products-api-slice';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import {

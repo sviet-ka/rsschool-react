@@ -1,8 +1,8 @@
 import React from 'react';
 import { Product } from '../../services/ProductsService';
-import './SearchResults.css';
+import '../styles/SearchResults.css';
 import { useFetchProductsQuery } from '../../features/products/products-api-slice';
-import ErrorPage from '../pages/not_found_page/NotFoundPage';
+import ErrorPage from '../../../pages/404';
 import { useAppSelector } from '../../app/hooks';
 
 interface SearchResultsProps {

@@ -1,6 +1,6 @@
 import { screen } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
-import ProductDetails from '../components/product_details/ProductDetails';
+import ProductDetails from '../../pages/details';
 import {
   MemoryRouter,
   RouterProvider,

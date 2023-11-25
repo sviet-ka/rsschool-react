@@ -1,5 +1,5 @@
 import './App.css';
-import MainPage from './components/pages/main_page/MainPage';
+import MainPage from './pages';
 
 const App: React.FC = () => {
   return (
