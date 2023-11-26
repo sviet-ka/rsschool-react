@@ -6,6 +6,7 @@ import {
   updateCurrentPage,
   updateItemsPerPage,
 } from '../../features/search/search-slice';
+import { useRouter } from 'next/router';
 
 export interface PaginationEvent {
   page: number;
@@ -17,6 +18,7 @@ export const Pagination: React.FC = () => {
   const currentPage = useAppSelector((state) => state.search.currentPage);
   const pageSize = useAppSelector((state) => state.search.itemsPerPage);
   const searchString = useAppSelector((state) => state.search.searchString);
+  const router = useRouter();
 
   const { data, isSuccess, isLoading, isError } = useFetchProductsQuery({
     searchString,
@@ -25,13 +27,19 @@ export const Pagination: React.FC = () => {
   });
 
   const handlePrevClick = () => {
-    dispatch(updateCurrentPage(currentPage - 1));
+    const pageNumber = currentPage - 1;
+    dispatch(updateCurrentPage(pageNumber));
     dispatch(updateItemsPerPage(pageSize));
+    router.query.page = String(pageNumber + 1);
+    router.push(router);
   };
 
   const handleNextClick = () => {
-    dispatch(updateCurrentPage(currentPage + 1));
+    const pageNumber = currentPage + 1;
+    dispatch(updateCurrentPage(pageNumber));
     dispatch(updateItemsPerPage(pageSize));
+    router.query.page = String(pageNumber + 1);
+    router.push(router);
   };
 
   const handlePageSizeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
