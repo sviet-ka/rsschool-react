@@ -1,8 +1,8 @@
 import React, { useCallback } from 'react';
 import '../styles/ProductDetails.css';
+import { useRouter } from 'next/router';
 import { useFetchProductQuery } from '../../features/products/products-api-slice';
 import ErrorPage from '../../../pages/404';
-import { useRouter } from 'next/router';
 
 const ProductDetails: React.FC = () => {
   const router = useRouter();
