@@ -1,10 +1,11 @@
 import { FormEvent, useRef, useState } from 'react';
 import { userSchema } from '../form-schema';
 import { ValidationError } from 'yup';
-
-const COUNTRIES = ['USA', 'UK', 'Canada', 'Mexico'];
+import { useAppSelector } from '../../app/hooks';
 
 const UncontrolledForm: React.FC = () => {
+  const countryList = useAppSelector((state) => state.countries.countryList);
+
   const [nameErr, setNameErr] = useState('');
   const [ageErr, setAgeErr] = useState('');
   const [emailErr, setEmailErr] = useState('');
@@ -14,6 +15,7 @@ const UncontrolledForm: React.FC = () => {
   const [acceptTCErr, setAcceptTCErr] = useState('');
   const [pictureErr, setPictureErr] = useState('');
   const [countryErr, setCountryErr] = useState('');
+
   const nameInputRef = useRef<HTMLInputElement>(null);
   const ageInputRef = useRef<HTMLInputElement>(null);
   const emailInputRef = useRef<HTMLInputElement>(null);
@@ -209,7 +211,7 @@ const UncontrolledForm: React.FC = () => {
             ref={countryInputRef}
           />
           <datalist id="countries">
-            {COUNTRIES.map((country) => (
+            {countryList.map((country) => (
               <option key={country} value={country} />
             ))}
           </datalist>
