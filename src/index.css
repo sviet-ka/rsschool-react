@@ -83,3 +83,8 @@ input:focus {
 .users-table tbody tr:last-child td {
   background-color: #69A;
 }
+
+.user-picture {
+  max-height: 50px;
+  max-width: 50px;
+}

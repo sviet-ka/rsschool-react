@@ -1,4 +1,4 @@
-import { FormEvent, useRef, useState } from 'react';
+import { ChangeEvent, FormEvent, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { userSchema } from '../form-schema';
 import { ValidationError } from 'yup';
@@ -19,6 +19,7 @@ const UncontrolledForm: React.FC = () => {
   const [acceptTCErr, setAcceptTCErr] = useState('');
   const [pictureErr, setPictureErr] = useState('');
   const [countryErr, setCountryErr] = useState('');
+  const [pictureBase64, setPictureBase64] = useState('');
 
   const nameInputRef = useRef<HTMLInputElement>(null);
   const ageInputRef = useRef<HTMLInputElement>(null);
@@ -104,7 +105,7 @@ const UncontrolledForm: React.FC = () => {
     };
     try {
       userSchema.validateSync(formData, { abortEarly: false });
-      const user = { ...formData, id: uid() };
+      const user = { ...formData, id: uid(), picture: pictureBase64 };
       delete user.passwordConfirmation;
       dispatch(addUser(user));
       navigate('/');
@@ -113,6 +114,19 @@ const UncontrolledForm: React.FC = () => {
         displayErrors(err.inner);
       }
     }
+  };
+
+  const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) {
+      return;
+    }
+    const fileReader = new FileReader();
+    fileReader.onloadend = () => {
+      const content = fileReader.result ?? '';
+      setPictureBase64(String(content));
+    };
+    fileReader.readAsDataURL(file);
   };
 
   return (
@@ -208,7 +222,12 @@ const UncontrolledForm: React.FC = () => {
         <label>
           Picture:
           <div className="validationMessage"> {pictureErr}</div>
-          <input type="file" name="Picture" ref={pictureInputRef} />
+          <input
+            type="file"
+            name="Picture"
+            ref={pictureInputRef}
+            onChange={handleFileChange}
+          />
         </label>
       </div>
       <div>

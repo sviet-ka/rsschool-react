@@ -3,6 +3,10 @@ import { useAppSelector } from '../../app/hooks';
 export const UserList: React.FC = () => {
   const users = useAppSelector((state) => state.users.userList);
 
+  if (!users.length) {
+    return null;
+  }
+
   return (
     <div>
       <table className="users-table">
@@ -13,6 +17,7 @@ export const UserList: React.FC = () => {
             <th>Email</th>
             <th>Password</th>
             <th>Gender</th>
+            <th>Accept T&C</th>
             <th>Picture</th>
             <th>Country</th>
           </tr>
@@ -25,7 +30,14 @@ export const UserList: React.FC = () => {
               <td>{user.email}</td>
               <td>{user.password}</td>
               <td>{user.gender}</td>
-              <td>{user.picture}</td>
+              <td>{String(user.acceptTC)}</td>
+              <td>
+                <img
+                  className="user-picture"
+                  src={user.picture}
+                  alt={user.name}
+                />
+              </td>
               <td>{user.country}</td>
             </tr>
           ))}
