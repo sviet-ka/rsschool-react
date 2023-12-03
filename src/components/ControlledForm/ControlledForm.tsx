@@ -85,7 +85,11 @@ const ControlledForm: React.FC = () => {
         <label>
           Password:
           <div className="validationMessage">{errors.password?.message}</div>
-          <input className="inputField" type="text" {...register('password')} />
+          <input
+            className="inputField"
+            type="password"
+            {...register('password')}
+          />
         </label>
       </div>
       <div>
@@ -96,7 +100,7 @@ const ControlledForm: React.FC = () => {
           </div>
           <input
             className="inputField"
-            type="text"
+            type="password"
             {...register('passwordConfirmation')}
           />
         </label>

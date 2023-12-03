@@ -173,7 +173,7 @@ const UncontrolledForm: React.FC = () => {
           <div className="validationMessage"> {passwordErr}</div>
           <input
             className="inputField"
-            type="text"
+            type="password"
             name="Password"
             ref={passwordInputRef}
           />
@@ -185,7 +185,7 @@ const UncontrolledForm: React.FC = () => {
           <div className="validationMessage"> {passwordcConfErr}</div>
           <input
             className="inputField"
-            type="text"
+            type="password"
             name="Confirm Password"
             ref={passwordConfInputRef}
           />
