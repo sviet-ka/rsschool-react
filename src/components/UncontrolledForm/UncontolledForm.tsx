@@ -107,45 +107,67 @@ const UncontrolledForm: React.FC = () => {
       <div>
         <label>
           Name:
-          <input type="text" name="Name" ref={nameInputRef} />
-          {nameErr}
+          <div className="validationMessage"> {nameErr}</div>
+          <input
+            className="inputField"
+            type="text"
+            name="Name"
+            ref={nameInputRef}
+          />
         </label>
       </div>
       <div>
         <label>
           Age:
-          <input type="number" name="Age" ref={ageInputRef} />
-          {ageErr}
+          <div className="validationMessage"> {ageErr}</div>
+          <input
+            className="inputField"
+            type="number"
+            name="Age"
+            ref={ageInputRef}
+          />
         </label>
       </div>
       <div>
         <label>
           Email:
-          <input type="email" name="Email" ref={emailInputRef} />
-          {emailErr}
+          <div className="validationMessage"> {emailErr}</div>
+          <input
+            className="inputField"
+            type="email"
+            name="Email"
+            ref={emailInputRef}
+          />
         </label>
       </div>
       <div>
         <label>
           Password:
-          <input type="text" name="Password" ref={passwordInputRef} />
-          {passwordErr}
+          <div className="validationMessage"> {passwordErr}</div>
+          <input
+            className="inputField"
+            type="text"
+            name="Password"
+            ref={passwordInputRef}
+          />
         </label>
       </div>
       <div>
         <label>
           Confirm Password:
+          <div className="validationMessage"> {passwordcConfErr}</div>
           <input
+            className="inputField"
             type="text"
             name="Confirm Password"
             ref={passwordConfInputRef}
           />
-          {passwordcConfErr}
         </label>
       </div>
       <div>
         <label>
           Gender:
+          <div className="validationMessage"> {genderErr}</div>
           <input
             type="radio"
             name="Gender"
@@ -160,33 +182,37 @@ const UncontrolledForm: React.FC = () => {
             value="Female"
           />
           Female
-          {genderErr}
         </label>
       </div>
       <div>
         <label>
           Accept T&C:
+          <div className="validationMessage"> {acceptTCErr}</div>
           <input type="checkbox" name="Accept T&C" ref={acceptTCInputRef} />
-          {acceptTCErr}
         </label>
       </div>
       <div>
         <label>
           Picture:
+          <div className="validationMessage"> {pictureErr}</div>
           <input type="file" name="Picture" ref={pictureInputRef} />
-          {pictureErr}
         </label>
       </div>
       <div>
         <label>
           Country:
-          <input list="countries" name="Country" ref={countryInputRef} />
+          <div className="validationMessage"> {countryErr}</div>
+          <input
+            className="inputField"
+            list="countries"
+            name="Country"
+            ref={countryInputRef}
+          />
           <datalist id="countries">
             {COUNTRIES.map((country) => (
               <option key={country} value={country} />
             ))}
           </datalist>
-          {countryErr}
         </label>
       </div>
       <button type="submit">Submit</button>

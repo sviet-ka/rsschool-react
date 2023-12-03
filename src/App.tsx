@@ -2,7 +2,7 @@ import { NavLink, Outlet } from 'react-router-dom';
 
 function App() {
   return (
-    <>
+    <div className="App">
       <div>
         <NavLink to="uncontrolled-form">Link to uncontrolled form</NavLink>
       </div>
@@ -12,7 +12,8 @@ function App() {
       </div>
 
       <Outlet></Outlet>
-    </>
+      <div />
+    </div>
   );
 }
 
