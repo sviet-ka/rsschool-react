@@ -20,6 +20,12 @@ button {
   padding: 0.5em 2em;
   font-size: 1em;
   margin: auto;
+  cursor: pointer;
+}
+
+button:disabled {
+  background-color: rgb(128, 128, 128);
+  cursor: default;
 }
 
 button:focus {

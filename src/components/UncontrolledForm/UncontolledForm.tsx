@@ -16,6 +16,8 @@ const UncontrolledForm: React.FC = () => {
   const [pictureErr, setPictureErr] = useState('');
   const [countryErr, setCountryErr] = useState('');
 
+  const [hasErr, setHasErr] = useState(false);
+
   const nameInputRef = useRef<HTMLInputElement>(null);
   const ageInputRef = useRef<HTMLInputElement>(null);
   const emailInputRef = useRef<HTMLInputElement>(null);
@@ -37,6 +39,7 @@ const UncontrolledForm: React.FC = () => {
     setAcceptTCErr('');
     setPictureErr('');
     setCountryErr('');
+    setHasErr(false);
   };
 
   const displayErrors = async (errors: ValidationError[]) => {
@@ -44,30 +47,39 @@ const UncontrolledForm: React.FC = () => {
       switch (error.path) {
         case 'name':
           setNameErr((prevErr) => (prevErr ? prevErr : error.message));
+          setHasErr(true);
           break;
         case 'age':
           setAgeErr((prevErr) => (prevErr ? prevErr : error.message));
+          setHasErr(true);
           break;
         case 'email':
           setEmailErr((prevErr) => (prevErr ? prevErr : error.message));
+          setHasErr(true);
           break;
         case 'password':
           setPasswordErr((prevErr) => (prevErr ? prevErr : error.message));
+          setHasErr(true);
           break;
         case 'passwordConfirmation':
           setPasswordConfErr((prevErr) => (prevErr ? prevErr : error.message));
+          setHasErr(true);
           break;
         case 'gender':
           setGenderErr((prevErr) => (prevErr ? prevErr : error.message));
+          setHasErr(true);
           break;
         case 'acceptTC':
           setAcceptTCErr((prevErr) => (prevErr ? prevErr : error.message));
+          setHasErr(true);
           break;
         case 'picture':
           setPictureErr((prevErr) => (prevErr ? prevErr : error.message));
+          setHasErr(true);
           break;
         case 'country':
           setCountryErr((prevErr) => (prevErr ? prevErr : error.message));
+          setHasErr(true);
           break;
         default:
           break;
@@ -217,7 +229,9 @@ const UncontrolledForm: React.FC = () => {
           </datalist>
         </label>
       </div>
-      <button type="submit">Submit</button>
+      <button type="submit" disabled={hasErr}>
+        Submit
+      </button>
     </form>
   );
 };
