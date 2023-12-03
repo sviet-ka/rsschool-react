@@ -27,16 +27,22 @@ export const userSchema = Yup.object({
       return this.parent.password === value;
     }),
   gender: Yup.string().required('Gender is required').oneOf(['Male', 'Female']),
-  acceptTC: Yup.boolean().oneOf([true], 'Please read and accept T&C'),
-  picture: Yup.mixed<File>()
-    .required('Picture is required')
+  acceptTC: Yup.boolean()
+    .required()
+    .oneOf([true], 'Please read and accept T&C'),
+  picture: Yup.mixed<FileList>()
     .test(
-      'Fichier taille',
-      'Picture is too large',
-      (value) => value.size <= 1024 * 1024
+      'Picture presence',
+      'Picture is required',
+      (files) => (files?.length ?? 0) > 0
     )
-    .test('format', 'Unsupported format', (value) =>
-      ['image/jpeg', 'image/png'].includes(value.type)
+    .test(
+      'Picture size',
+      'Picture is too large',
+      (files) => (files?.[0]?.size ?? 0) <= 1024 * 1024
+    )
+    .test('format', 'Unsupported format', (files) =>
+      ['image/jpeg', 'image/png'].includes(files?.[0]?.type ?? '')
     ),
   country: Yup.string().required('Country is required'),
 });

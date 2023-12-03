@@ -5,11 +5,12 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import UncontrolledForm from './components/UncontrolledForm/UncontolledForm';
 import { Provider } from 'react-redux';
 import { store } from './app/store';
+import ControlledForm from './components/ControlledForm/ControlledForm';
 
 const router = createBrowserRouter([
   { path: '/', element: <App /> },
   { path: '/uncontrolled-form', element: <UncontrolledForm /> },
-  { path: '/controlled-form', element: <h1>ControlledForm</h1> },
+  { path: '/controlled-form', element: <ControlledForm /> },
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')!).render(

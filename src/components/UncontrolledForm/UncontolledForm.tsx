@@ -100,7 +100,7 @@ const UncontrolledForm: React.FC = () => {
       passwordConfirmation: passwordConfInputRef?.current?.value,
       gender,
       acceptTC: acceptTCInputRef?.current?.checked,
-      picture: pictureInputRef?.current?.files?.[0],
+      picture: pictureInputRef?.current?.files,
       country: countryInputRef?.current?.value,
     };
     try {
@@ -192,9 +192,9 @@ const UncontrolledForm: React.FC = () => {
         </label>
       </div>
       <div>
+        <label>Gender:</label>
+        <div className="validationMessage"> {genderErr}</div>
         <label>
-          Gender:
-          <div className="validationMessage"> {genderErr}</div>
           <input
             type="radio"
             name="Gender"
@@ -202,6 +202,8 @@ const UncontrolledForm: React.FC = () => {
             value="Male"
           />
           Male
+        </label>
+        <label>
           <input
             type="radio"
             name="Gender"
