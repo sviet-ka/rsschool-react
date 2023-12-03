@@ -1,17 +1,18 @@
-import { NavLink, Outlet } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
+import { UserList } from './components/UserList/UserList';
 
 function App() {
   return (
     <div className="App">
       <div>
-        <NavLink to="uncontrolled-form">Link to uncontrolled form</NavLink>
+        <NavLink to="uncontrolled-form">Uncontrolled form</NavLink>
       </div>
 
       <div>
-        <NavLink to="controlled-form">Link to controlled form</NavLink>
+        <NavLink to="controlled-form">Controlled form</NavLink>
       </div>
 
-      <Outlet></Outlet>
+      <UserList></UserList>
       <div />
     </div>
   );

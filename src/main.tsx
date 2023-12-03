@@ -7,20 +7,9 @@ import { Provider } from 'react-redux';
 import { store } from './app/store';
 
 const router = createBrowserRouter([
-  {
-    path: '/',
-    element: <App />,
-    children: [
-      {
-        path: 'uncontrolled-form',
-        element: <UncontrolledForm />,
-      },
-      {
-        path: 'controlled-form',
-        element: <h1>ControlledForm</h1>,
-      },
-    ],
-  },
+  { path: '/', element: <App /> },
+  { path: '/uncontrolled-form', element: <UncontrolledForm /> },
+  { path: '/controlled-form', element: <h1>ControlledForm</h1> },
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')!).render(

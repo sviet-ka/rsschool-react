@@ -71,3 +71,15 @@ input:focus {
   color: rgb(1, 37, 37);
 }
 
+.users-table {
+  border-collapse: collapse;
+}
+
+.users-table td {
+  padding: 4px;
+  border: 1px solid #000
+}
+
+.users-table tbody tr:last-child td {
+  background-color: #69A;
+}

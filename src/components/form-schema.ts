@@ -17,7 +17,10 @@ export const userSchema = Yup.object({
     .matches(/[a-z]+/g, 'Password should contain one lowercase character')
     .matches(/[A-Z]+/g, 'Password should contain one uppercase character')
     .matches(/\d+/g, 'Password should contain one number')
-    .matches(/[@$!%*#?&\.]+/g, 'Password should contain one special character'),
+    .matches(
+      /[@$!%*#\,?&\.]+/g,
+      'Password should contain one special character'
+    ),
   passwordConfirmation: Yup.string()
     .required('Password Confirmation is required')
     .test('passwords-match', 'Passwords must match', function (value) {

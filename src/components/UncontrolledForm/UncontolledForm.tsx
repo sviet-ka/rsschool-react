@@ -1,10 +1,14 @@
 import { FormEvent, useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { userSchema } from '../form-schema';
 import { ValidationError } from 'yup';
-import { useAppSelector } from '../../app/hooks';
+import { useAppDispatch, useAppSelector } from '../../app/hooks';
+import { addUser } from '../../features/users/users-slice';
 
 const UncontrolledForm: React.FC = () => {
   const countryList = useAppSelector((state) => state.countries.countryList);
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const [nameErr, setNameErr] = useState('');
   const [ageErr, setAgeErr] = useState('');
@@ -15,8 +19,6 @@ const UncontrolledForm: React.FC = () => {
   const [acceptTCErr, setAcceptTCErr] = useState('');
   const [pictureErr, setPictureErr] = useState('');
   const [countryErr, setCountryErr] = useState('');
-
-  const [hasErr, setHasErr] = useState(false);
 
   const nameInputRef = useRef<HTMLInputElement>(null);
   const ageInputRef = useRef<HTMLInputElement>(null);
@@ -39,7 +41,6 @@ const UncontrolledForm: React.FC = () => {
     setAcceptTCErr('');
     setPictureErr('');
     setCountryErr('');
-    setHasErr(false);
   };
 
   const displayErrors = async (errors: ValidationError[]) => {
@@ -47,45 +48,39 @@ const UncontrolledForm: React.FC = () => {
       switch (error.path) {
         case 'name':
           setNameErr((prevErr) => (prevErr ? prevErr : error.message));
-          setHasErr(true);
           break;
         case 'age':
           setAgeErr((prevErr) => (prevErr ? prevErr : error.message));
-          setHasErr(true);
           break;
         case 'email':
           setEmailErr((prevErr) => (prevErr ? prevErr : error.message));
-          setHasErr(true);
           break;
         case 'password':
           setPasswordErr((prevErr) => (prevErr ? prevErr : error.message));
-          setHasErr(true);
           break;
         case 'passwordConfirmation':
           setPasswordConfErr((prevErr) => (prevErr ? prevErr : error.message));
-          setHasErr(true);
           break;
         case 'gender':
           setGenderErr((prevErr) => (prevErr ? prevErr : error.message));
-          setHasErr(true);
           break;
         case 'acceptTC':
           setAcceptTCErr((prevErr) => (prevErr ? prevErr : error.message));
-          setHasErr(true);
           break;
         case 'picture':
           setPictureErr((prevErr) => (prevErr ? prevErr : error.message));
-          setHasErr(true);
           break;
         case 'country':
           setCountryErr((prevErr) => (prevErr ? prevErr : error.message));
-          setHasErr(true);
           break;
         default:
           break;
       }
     });
   };
+
+  const uid = () =>
+    `${Date.now().toString(36)}${Math.random().toString(36).substring(2)}`;
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
@@ -109,6 +104,10 @@ const UncontrolledForm: React.FC = () => {
     };
     try {
       userSchema.validateSync(formData, { abortEarly: false });
+      const user = { ...formData, id: uid() };
+      delete user.passwordConfirmation;
+      dispatch(addUser(user));
+      navigate('/');
     } catch (err) {
       if (err instanceof ValidationError) {
         displayErrors(err.inner);
@@ -229,9 +228,7 @@ const UncontrolledForm: React.FC = () => {
           </datalist>
         </label>
       </div>
-      <button type="submit" disabled={hasErr}>
-        Submit
-      </button>
+      <button type="submit">Submit</button>
     </form>
   );
 };
